@@ -1,0 +1,5 @@
+{
+    "MONGO_URL": "127.0.0.1",
+    "MONGO_DATABASE": "migration_test",
+    "MIGRATIONS_ROOT": "safe_migrations"
+}

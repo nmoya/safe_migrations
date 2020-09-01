@@ -1,0 +1,16 @@
+venv
+*.log
+*.pyc
+.ipynb_checkpoints
+.mypy_cache
+.vscode
+env*
+exports*
+.env*
+.coverage
+.idea
+deploy_all.sh
+.pytest_cache
+htmlcov
+.venv
+tools/*.png
