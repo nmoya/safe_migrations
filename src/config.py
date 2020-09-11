@@ -12,3 +12,4 @@ configs = config_content()
 MONGO_URL = configs["MONGO_URL"]
 MONGO_DATABASE = configs["MONGO_DATABASE"]
 MIGRATIONS_ROOT = configs["MIGRATIONS_ROOT"]
+TEST_DATABASE = configs["TEST_DATABASE"]

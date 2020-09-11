@@ -1,29 +1,15 @@
-from os import listdir
-from os.path import isfile, join
-
 import click
 
+from src.config import MIGRATIONS_ROOT
 from src.database import db
 from src.decorators import CollectionDecorator
-
-MIGRATIONS_ROOT = "safe_migrations"
-
-
-def load_migration_files(path):
-    return [f for f in listdir(path) if isfile(join(path, f))]
-
-
-def import_by_string(full_name):
-    module_name, unit_name = full_name.rsplit(".", 1)
-    return getattr(__import__(module_name, fromlist=[""]), unit_name)
+from src.loader import import_method_by_module_str, load_migration_files
 
 
 def migrate(direction: str):
     for file in load_migration_files(MIGRATIONS_ROOT):
-        file_path = join(MIGRATIONS_ROOT, file).replace("/", ".")
-        function_path = file_path.replace("py", direction)
-        up_func = import_by_string(function_path)
-        operations = up_func(db)
+        migration_fn = import_method_by_module_str(file, direction)
+        operations = migration_fn(db)
         CollectionDecorator._migrate_pipeline(db, operations)
 
 
